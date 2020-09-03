@@ -39,10 +39,10 @@ class Login extends React.Component {
 				.then((signedInUser) => {
 					console.log(signedInUser);
 				})
-				.catch((err) => {
-					console.error(err);
+				.catch((error) => {
+					console.error(error);
 					this.setState({
-						errors: this.state.errors.concat(err),
+						errors: this.state.errors.concat(error),
 						loading: false,
 					});
 				});
@@ -66,8 +66,8 @@ class Login extends React.Component {
 			<Grid textAlign='center' verticalAlign='middle' className='app'>
 				<Grid.Column style={{ maxWidth: 450 }}>
 					<Header as='h1' icon color='violet' textAlign='center'>
-						<Icon name='code branch' color='violet' />
-						Login to DevChat
+						<Icon name='code branch' color='violet'></Icon>
+						Login to Chatidle
 					</Header>
 					<Form onSubmit={this.handleSubmit} size='large'>
 						<Segment stacked>
@@ -76,15 +76,14 @@ class Login extends React.Component {
 								name='email'
 								icon='mail'
 								iconPosition='left'
-								placeholder='Email Address'
+								placeholder='Email address'
 								onChange={this.handleChange}
 								value={email}
 								className={this.handleInputError(
 									errors,
 									'email'
 								)}
-								type='email'
-							/>
+								type='email'></Form.Input>
 
 							<Form.Input
 								fluid
@@ -98,8 +97,7 @@ class Login extends React.Component {
 									errors,
 									'password'
 								)}
-								type='password'
-							/>
+								type='password'></Form.Input>
 
 							<Button
 								disabled={loading}
