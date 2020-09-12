@@ -6,6 +6,10 @@ body,
 	padding: 1em;
 }
 
+html {
+	padding: 0;
+}
+
 /* SidePanel.js */
 .menu {
 	padding-bottom: 2em;
@@ -13,17 +17,16 @@ body,
 
 /* Messages.js */
 .messages {
-	height: 62vh;
+	height: 75vh;
 	overflow-y: scroll;
 }
 
 /* MessageForm.js */
 .message__form {
 	position: fixed !important;
-	bottom: 1em;
-	margin-left: 320px !important;
+	bottom: 0;
 	left: 0;
-	right: 1em;
+	right: 0;
 	z-index: 200;
 }
 
@@ -181,4 +184,17 @@ body,
 	bottom: 5px;
 	left: 40px;
 	right: 20px;
+}
+
+@media screen and (min-width: 768px) {
+	.side-menu-indent {
+		margin-left: 280px;
+	}
+	.messages {
+		height: 70vh;
+	}
+	.message__form {
+		margin-left: 280px !important;
+		right: 1em;
+	}
 }

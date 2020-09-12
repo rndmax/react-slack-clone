@@ -7,6 +7,8 @@ import Spinner from './Spinner';
 import registerServiceWorker from './registerServiceWorker';
 import firebase from './firebase';
 
+import Test from './components/Test';
+
 import 'semantic-ui-css/semantic.min.css';
 
 import {
@@ -27,8 +29,10 @@ const store = createStore(rootReducer, composeWithDevTools());
 class Root extends React.Component {
 	componentDidMount() {
 		firebase.auth().onAuthStateChanged((user) => {
-			if (user) {
-				// console.log(user);
+			if (this.props.location.pathname === '/test') {
+				this.props.setUser(user);
+				this.props.history.push('/test');
+			} else if (user) {
 				this.props.setUser(user);
 				this.props.history.push('/');
 			} else {
@@ -46,6 +50,7 @@ class Root extends React.Component {
 				<Route exact path='/' component={App} />
 				<Route path='/login' component={Login} />
 				<Route path='/register' component={Register} />
+				<Route path='/test' component={Test} />
 			</Switch>
 		);
 	}

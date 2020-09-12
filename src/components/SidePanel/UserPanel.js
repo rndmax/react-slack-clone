@@ -119,13 +119,13 @@ class UserPanel extends React.Component {
 		const { primaryColor } = this.props;
 
 		return (
-			<Grid style={{ background: primaryColor }}>
+			<Grid padded style={{ background: primaryColor }}>
 				<Grid.Column>
 					<Grid.Row style={{ padding: '1.2em', margin: 0 }}>
 						{/* App Header */}
 						<Header inverted floated='left' as='h2'>
 							<Icon name='code' />
-							<Header.Content>DevChat</Header.Content>
+							<Header.Content>Chatidle</Header.Content>
 						</Header>
 
 						{/* User Dropdown  */}

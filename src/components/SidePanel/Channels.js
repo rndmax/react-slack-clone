@@ -152,6 +152,7 @@ class Channels extends React.Component {
 		this.props.setCurrentChannel(channel);
 		this.props.setPrivateChannel(false);
 		this.setState({ channel });
+		this.props.handleSidebarHide && this.props.handleSidebarHide();
 	};
 
 	clearNotifications = () => {
