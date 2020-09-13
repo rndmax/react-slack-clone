@@ -1,7 +1,7 @@
 import React from 'react';
 import uuidv4 from 'uuid/v4';
 import firebase from '../../firebase';
-import { Segment, Button, Input } from 'semantic-ui-react';
+import { Segment, Button, Input, Label } from 'semantic-ui-react';
 import { Picker, emojiIndex } from 'emoji-mart';
 import 'emoji-mart/css/emoji-mart.css';
 
@@ -218,6 +218,7 @@ class MessageForm extends React.Component {
 					/>
 				)}
 				<Input
+					type='text'
 					fluid
 					name='message'
 					onChange={this.handleChange}
@@ -225,14 +226,8 @@ class MessageForm extends React.Component {
 					value={message}
 					ref={(node) => (this.messageInputRef = node)}
 					style={{ marginBottom: '0.7em' }}
-					label={
-						<Button
-							icon={emojiPicker ? 'close' : 'add'}
-							content={emojiPicker ? 'Close' : null}
-							onClick={this.handleTogglePicker}
-						/>
-					}
-					labelPosition='left'
+					// label={}
+					// labelPosition='left'
 					className={
 						errors.some((error) =>
 							error.message.includes('message')
@@ -240,9 +235,27 @@ class MessageForm extends React.Component {
 							? 'error'
 							: ''
 					}
-					placeholder='Write your message'
-				/>
-				<Button.Group icon widths='2'>
+					placeholder='Write your message'>
+					{/* <Label basic>
+						<Button
+							icon={emojiPicker ? 'close' : 'add'}
+							content={emojiPicker ? 'Close' : null}
+							onClick={this.handleTogglePicker}
+						/>
+					</Label> */}
+					<Button
+						disabled={uploadState === 'uploading'}
+						onClick={this.openModal}
+						icon='attach'
+					/>
+					<input />
+					<Button
+						onClick={this.sendMessage}
+						disabled={loading}
+						icon='send'
+					/>
+				</Input>
+				{/* <Button.Group icon widths='2'>
 					<Button
 						onClick={this.sendMessage}
 						disabled={loading}
@@ -259,7 +272,7 @@ class MessageForm extends React.Component {
 						labelPosition='right'
 						icon='cloud upload'
 					/>
-				</Button.Group>
+				</Button.Group> */}
 				<FileModal
 					modal={modal}
 					closeModal={this.closeModal}
