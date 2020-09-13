@@ -17,7 +17,7 @@ html {
 
 /* Messages.js */
 .messages {
-	height: 75vh;
+	height: 64vh;
 	overflow-y: scroll;
 }
 
