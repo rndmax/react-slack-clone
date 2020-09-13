@@ -225,7 +225,6 @@ class MessageForm extends React.Component {
 					onKeyDown={this.handleKeyDown}
 					value={message}
 					ref={(node) => (this.messageInputRef = node)}
-					style={{ marginBottom: '0.7em' }}
 					// label={}
 					// labelPosition='left'
 					className={
@@ -247,12 +246,14 @@ class MessageForm extends React.Component {
 						disabled={uploadState === 'uploading'}
 						onClick={this.openModal}
 						icon='attach'
+						style={{ marginRight: '0', borderRadius: '0' }}
 					/>
-					<input />
+					<input style={{ borderRadius: '0' }} />
 					<Button
 						onClick={this.sendMessage}
 						disabled={loading}
 						icon='send'
+						style={{ borderRadius: '0' }}
 					/>
 				</Input>
 				{/* <Button.Group icon widths='2'>
