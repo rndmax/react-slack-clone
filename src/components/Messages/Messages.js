@@ -289,17 +289,16 @@ class Messages extends React.Component {
 
 		return (
 			<React.Fragment>
-				<MessagesHeader
-					channelName={this.displayChannelName(channel)}
-					numUniqueUsers={numUniqueUsers}
-					handleSearchChange={this.handleSearchChange}
-					searchLoading={searchLoading}
-					isPrivateChannel={privateChannel}
-					handleStar={this.handleStar}
-					isChannelStarred={isChannelStarred}
-				/>
-
 				<Segment>
+					<MessagesHeader
+						channelName={this.displayChannelName(channel)}
+						numUniqueUsers={numUniqueUsers}
+						handleSearchChange={this.handleSearchChange}
+						searchLoading={searchLoading}
+						isPrivateChannel={privateChannel}
+						handleStar={this.handleStar}
+						isChannelStarred={isChannelStarred}
+					/>
 					<Comment.Group className='messages'>
 						{this.displayMessageSkeleton(messagesLoading)}
 						{searchTerm
@@ -308,15 +307,14 @@ class Messages extends React.Component {
 						{this.displayTypingUsers(typingUsers)}
 						<div ref={(node) => (this.messagesEnd = node)} />
 					</Comment.Group>
+					<MessageForm
+						messagesRef={messagesRef}
+						currentChannel={channel}
+						currentUser={user}
+						isPrivateChannel={privateChannel}
+						getMessagesRef={this.getMessagesRef}
+					/>
 				</Segment>
-
-				<MessageForm
-					messagesRef={messagesRef}
-					currentChannel={channel}
-					currentUser={user}
-					isPrivateChannel={privateChannel}
-					getMessagesRef={this.getMessagesRef}
-				/>
 			</React.Fragment>
 		);
 	}

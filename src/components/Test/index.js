@@ -132,7 +132,7 @@ class MobileContainer extends Component {
 									inverted
 									pointing
 									size='large'
-									fixed
+									fixed='top'
 									style={{ padding: '0' }}>
 									<Menu.Item onClick={this.handleToggle}>
 										<Icon name='sidebar' />
