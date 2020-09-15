@@ -26,7 +26,6 @@ class DirectMessages extends React.Component {
 	}
 
 	componentWillUnmount() {
-		'unmount1');
 		this.removeListeners();
 	}
 
@@ -37,13 +36,11 @@ class DirectMessages extends React.Component {
 		this.state.privateMessagesRef.off();
 		this.state.privateMessages.length > 0 &&
 			this.removePrivareMessagesListeners();
-		'removed');
 	};
 
 	removePrivareMessagesListeners() {
 		this.state.privateMessages.forEach((u) => {
 			u.forEach((uTo) => {
-				`${u}/${uTo}`);
 				this.state.privateMessagesRef.child(`${u}/${uTo}`).off();
 			});
 		});
@@ -87,8 +84,6 @@ class DirectMessages extends React.Component {
 
 		let loadedPrivateMessage = [];
 		this.state.privateMessagesRef.on('child_added', (snap) => {
-			
-			);
 			loadedPrivateMessage.push(snap.val());
 			this.setState({ privateMessages: loadedPrivateMessage }, () =>
 				this.setChannel(loadedPrivateMessage[0])
