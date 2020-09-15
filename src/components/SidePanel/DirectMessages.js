@@ -39,10 +39,19 @@ class DirectMessages extends React.Component {
 	};
 
 	removePrivareMessagesListeners() {
-		this.state.privateMessages.forEach((u) => {
-			u.forEach((uTo) => {
-				this.state.privateMessagesRef.child(`${u}/${uTo}`).off();
-			});
+		console.log(JSON.stringify(this.state.privateMessages));
+		this.state.privateMessages.forEach((messageChannels) => {
+			for (const fromUser in messageChannels) {
+				if (messageChannels.hasOwnProperty(fromUser)) {
+					for (const toUser in messageChannels[fromUser]) {
+						if (messageChannels[fromUser].hasOwnProperty(toUser)) {
+							this.state.privateMessagesRef
+								.child(`${fromUser}/${toUser}`)
+								.off();
+						}
+					}
+				}
+			}
 		});
 	}
 
@@ -84,7 +93,7 @@ class DirectMessages extends React.Component {
 
 		let loadedPrivateMessage = [];
 		this.state.privateMessagesRef.on('child_added', (snap) => {
-			loadedPrivateMessage.push(snap.val());
+			loadedPrivateMessage.push({ [snap.key]: snap.val() });
 			this.setState({ privateMessages: loadedPrivateMessage }, () =>
 				this.setChannel(loadedPrivateMessage[0])
 			);
@@ -103,6 +112,7 @@ class DirectMessages extends React.Component {
 	addNotificationListener = (messagesChannelId) => {
 		this.state.privateMessagesRef
 			.child(messagesChannelId)
+
 			.on('value', (snap) => {
 				if (this.state.channel) {
 					this.handleNotifications(
@@ -186,10 +196,7 @@ class DirectMessages extends React.Component {
 		this.props.setCurrentChannel(channelData);
 		this.props.setPrivateChannel(true);
 		this.setActiveChannel(user.uid);
-		/* this.setState((state) => {
-			// Important: read `state` instead of `this.state` when updating.
-			return { channel: channelData };
-		}); */
+		this.setState({ channel: channelData });
 		this.setChannel(channelData);
 		this.props.handleSidebarHide && this.props.handleSidebarHide();
 	};
