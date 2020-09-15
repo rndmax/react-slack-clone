@@ -69,8 +69,10 @@ class Messages extends React.Component {
 
 		if (index === -1) {
 			const newListener = { id, ref, event };
-			this.setState({
-				listeners: this.state.listeners.concat(newListener),
+			this.setState((state) => {
+				return {
+					listeners: state.listeners.concat(newListener),
+				};
 			});
 		}
 	};

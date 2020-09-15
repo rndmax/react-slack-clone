@@ -1,13 +1,13 @@
 import React from 'react';
-import { Header, Segment, Input, Icon } from 'semantic-ui-react';
+import { Header, Segment, /* Input, */ Icon } from 'semantic-ui-react';
 
 class MessagesHeader extends React.Component {
 	render() {
 		const {
 			channelName,
 			numUniqueUsers,
-			handleSearchChange,
-			searchLoading,
+			// handleSearchChange,
+			// searchLoading,
 			isPrivateChannel,
 			handleStar,
 			isChannelStarred,

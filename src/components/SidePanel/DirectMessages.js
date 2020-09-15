@@ -26,6 +26,7 @@ class DirectMessages extends React.Component {
 	}
 
 	componentWillUnmount() {
+		'unmount1');
 		this.removeListeners();
 	}
 
@@ -34,7 +35,19 @@ class DirectMessages extends React.Component {
 		this.state.presenceRef.off();
 		this.state.connectedRef.off();
 		this.state.privateMessagesRef.off();
+		this.state.privateMessages.length > 0 &&
+			this.removePrivareMessagesListeners();
+		'removed');
 	};
+
+	removePrivareMessagesListeners() {
+		this.state.privateMessages.forEach((u) => {
+			u.forEach((uTo) => {
+				`${u}/${uTo}`);
+				this.state.privateMessagesRef.child(`${u}/${uTo}`).off();
+			});
+		});
+	}
 
 	addListeners = (currentUserUid) => {
 		let loadedUsers = [];
@@ -74,9 +87,11 @@ class DirectMessages extends React.Component {
 
 		let loadedPrivateMessage = [];
 		this.state.privateMessagesRef.on('child_added', (snap) => {
+			
+			);
 			loadedPrivateMessage.push(snap.val());
 			this.setState({ privateMessages: loadedPrivateMessage }, () =>
-				this.setState({ channel: loadedPrivateMessage[0] })
+				this.setChannel(loadedPrivateMessage[0])
 			);
 			const usersToMessages = snap.val();
 			for (const userFromUserTomessages in usersToMessages) {
@@ -129,7 +144,7 @@ class DirectMessages extends React.Component {
 			notifications[index].lastKnownTotal = snap.numChildren();
 		} else {
 			notifications.push({
-				id: messagesChannelId,
+				id: this.getChannelId(snap.key),
 				total: snap.numChildren(),
 				lastKnownTotal: snap.numChildren(),
 				count: 0,
@@ -176,7 +191,11 @@ class DirectMessages extends React.Component {
 		this.props.setCurrentChannel(channelData);
 		this.props.setPrivateChannel(true);
 		this.setActiveChannel(user.uid);
-		this.setState({ channel: channelData });
+		/* this.setState((state) => {
+			// Important: read `state` instead of `this.state` when updating.
+			return { channel: channelData };
+		}); */
+		this.setChannel(channelData);
 		this.props.handleSidebarHide && this.props.handleSidebarHide();
 	};
 
@@ -190,6 +209,10 @@ class DirectMessages extends React.Component {
 	setActiveChannel = (userId) => {
 		this.setState({ activeChannel: userId });
 	};
+
+	setChannel(channel) {
+		this.setState({ channel });
+	}
 
 	getNotificationCount = (user) => {
 		let count = 0;
